@@ -51,7 +51,7 @@ public class GameGUI implements MouseMotionListener, MouseListener, KeyListener 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         try {
-            frame.setIconImage(ImageIO.read(new File("./assets/KBLogo.png")));
+            frame.setIconImage(ImageIO.read(new File("./src/assets/KBLogo.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
