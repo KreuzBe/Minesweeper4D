@@ -1,13 +1,16 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
 public class GameGUI implements MouseMotionListener, MouseListener, KeyListener {
 
-    private int dimX = 4, dimY = 4, fWidth = 4, fHeight = 3, cBombs = 4;
+    private int dimX = 4, dimY = 4, fWidth = 4, fHeight = 4, cBombs = 4;
 
     private JFrame frame;
     private JPanel panel;
@@ -47,6 +50,11 @@ public class GameGUI implements MouseMotionListener, MouseListener, KeyListener 
         frame = new JFrame("Minesweeper4D");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        try {
+            frame.setIconImage(ImageIO.read(new File("./assets/KBLogo.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         frame.add(panel);
         frame.pack();
         frame.setMinimumSize(frame.getSize());
