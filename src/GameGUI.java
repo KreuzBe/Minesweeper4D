@@ -168,7 +168,7 @@ public class GameGUI implements MouseMotionListener, MouseListener, KeyListener 
             }
             frame.setTitle("Minesweeper4D!  [" + nFlag + "/" + game.getBombs() + " bombs marked]");
         }
-        if (game.isOver()) {
+        if (game.isOver() || game.hasWon()) {
             for (int x = 0; x < vMap.length; x++) {
                 for (int y = 0; y < vMap[0].length; y++) {
                     if (game.isBomb(x / fWidth, y / fHeight, x % fWidth, y % fHeight)) {

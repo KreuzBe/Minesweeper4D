@@ -165,6 +165,20 @@ public class Game {
         }
     }
 
+    public boolean hasWon() {
+        for (int dx = 0; dx < dimX; dx++) {
+            for (int dy = 0; dy < dimY; dy++) {
+                for (int x = 0; x < fWidth; x++) {
+                    for (int y = 0; y < fHeight; y++) {
+                        if (isBomb(dx, dy, x, y) ^ isFlag(dx, dy, x, y))
+                            return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     private void gameOver() {
         timer += System.currentTimeMillis() - startTime;
         currentState = STATE_POSTGAME;
