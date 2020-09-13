@@ -242,13 +242,12 @@ public class GameGUI implements MouseMotionListener, MouseListener, KeyListener 
                 for (int k = -1; k <= 1; k++) {
                     for (int l = -1; l <= 1; l++) {
                         try {
-                            if (((x + k) / fWidth != x / fWidth) || ((y + l) / fHeight != y / fHeight))
+                            if (((x + k) / fWidth != x / fWidth) || (x + k) < 0 || (y + l < 0) || ((y + l) / fHeight != y / fHeight))
                                 continue;
                             int xn = x + i * fWidth + k;
                             int yn = y + j * fHeight + l;
                             vMap[xn][yn].setBorder(new LineBorder(Color.BLACK, 3));
                         } catch (Exception ignored) {
-
                         }
                     }
 

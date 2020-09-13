@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 public class Game {
     private final static int BOMB = 0b1;
     private final static int OPEN = 0b10;
