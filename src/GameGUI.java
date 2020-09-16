@@ -186,7 +186,7 @@ public class GameGUI implements MouseMotionListener, MouseListener, KeyListener 
             frame.setTitle("Minesweeper4D! [Game over!(" + game.getMilliTime() / 1000 + "s)]");
             openCreateDialog();
         }
-
+        panel.repaint();
     }
 
     @Override

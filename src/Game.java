@@ -30,11 +30,6 @@ public class Game {
         this.fHeight = fHeight;
         this.cBombs = cBombs;
         map = new int[dimX][dimY][fWidth][fHeight];
-
-
-        for (int i = 0; i < cBombs; i++) {
-            createBomb();
-        }
         calcValues();
     }
 
@@ -110,6 +105,22 @@ public class Game {
         setBomb(x / fWidth, y / fHeight, x % fWidth, y % fHeight);
     }
 
+
+    // Places bombs, but tries to have the value 0 at the specified point. If it does not work once in 100 tries, it will ignore that rule.
+    public void replaceBombs(int dx, int dy, int x, int y) {
+        for (int i = 0; i < cBombs; i++) {
+            int xn, yn;
+            int cTries = 0;
+            do {
+                cTries++;
+                xn = (int) (dimX * fWidth * Math.random());
+                yn = (int) (dimY * fHeight * Math.random());
+            } while (cTries < 100 && ((Math.abs(xn / fWidth - dx) <= 1 && Math.abs(xn % fWidth - x) <= 1) || (Math.abs(yn / fWidth - dy) <= 1 && Math.abs(yn % fWidth - y) <= 1)) || isBomb(xn / fWidth, yn / fHeight, xn % fWidth, yn % fHeight));
+            setBomb(xn / fWidth, yn / fHeight, xn % fWidth, yn % fHeight);
+        }
+        calcValues();
+    }
+
     public boolean isOpen(int dx, int dy, int x, int y) {
         return ((map[dx][dy][x][y] & OPEN) == OPEN);
     }
@@ -117,11 +128,12 @@ public class Game {
 
     public void spread(int dx, int dy, int x, int y) {
         if (currentState == STATE_PREGAME) {
-            if (isBomb(dx, dy, x, y)) {
-                createBomb();
-                map[dx][dy][x][y] ^= BOMB;
-                calcValues();
-            }
+//            if (isBomb(dx, dy, x, y)) {
+//                createBomb();
+//                map[dx][dy][x][y] ^= BOMB;
+//                calcValues();
+//            }
+            replaceBombs(dx, dy, x, y);
             startTime = System.currentTimeMillis();
             currentState = STATE_INGAME;
         } else {
@@ -164,6 +176,7 @@ public class Game {
     }
 
     public boolean hasWon() {
+        if (currentState != STATE_INGAME) return false;
         for (int dx = 0; dx < dimX; dx++) {
             for (int dy = 0; dy < dimY; dy++) {
                 for (int x = 0; x < fWidth; x++) {
@@ -178,6 +191,7 @@ public class Game {
     }
 
     private void gameOver() {
+        if (currentState != STATE_INGAME) return;
         timer += System.currentTimeMillis() - startTime;
         currentState = STATE_POSTGAME;
     }
